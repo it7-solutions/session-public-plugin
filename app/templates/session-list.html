@@ -1,0 +1,10 @@
+<h3>Sessions</h3>
+<div *ngFor="let item of sessionList.items">
+    <div *ngIf="item.visible" (click)="onExpandClick(item)">
+        {{ item.original.name }}
+        <span *ngIf="item.original.isInAgenda ">Already in agenda</span>
+        <span *ngIf="item.original.isCanAdd" (click)="onAddClick(item)">[+]</span>
+        <span *ngIf="item.original.isCanRemove" (click)="onRemoveClick(item)">[-]</span>
+    </div>
+    <div *ngIf="item.visible && item.expanded">Expanded</div>
+</div>
