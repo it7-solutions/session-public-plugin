@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
-import {ChooseCantonModule} from './choose-canton/choose-canton.module';
+import {ChooseCantonModule} from './modules/choose-canton/choose-canton.module';
 import {PluginComponent}  from './components/plugin.component';
 import {SessionListComponent}  from './components/session-list.component';
 import {MyAgendaListComponent}  from './components/my-agenda-list.component';

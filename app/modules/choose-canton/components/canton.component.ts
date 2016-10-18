@@ -1,9 +1,9 @@
 import {Component, HostListener, Input} from '@angular/core';
-import {PluginConfig} from "../../services/plugin.config";
+import {PluginConfig} from "../../../services/plugin.config";
 
 @Component({
     selector: '[myCanton]',
-    templateUrl: PluginConfig.buildTemplateUrl('choose-canton/templates/canton.html')
+    templateUrl: PluginConfig.buildTemplateUrl('modules/choose-canton/templates/canton.html')
 })
 export class CantonComponent {
     @Input() canton: any;

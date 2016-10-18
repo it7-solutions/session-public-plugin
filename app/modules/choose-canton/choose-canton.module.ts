@@ -1,7 +1,7 @@
 import {NgModule}      from '@angular/core';
 import {ChooseCantonComponent}  from './components/choose-canton.component';
 import {CantonComponent}  from './components/canton.component';
-import {PluginConfig}  from '../services/plugin.config';
+import {PluginConfig}  from '../../services/plugin.config';
 
 @NgModule({
     // imports: [BrowserModule],
@@ -12,8 +12,8 @@ import {PluginConfig}  from '../services/plugin.config';
 export class ChooseCantonModule {
 
     constructor(
-        private _config: PluginConfig
+        private config: PluginConfig
     ) {
-        console.log('module ', _config);
+        console.log('module ', config);
     }
 }
