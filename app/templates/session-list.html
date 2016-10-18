@@ -1,4 +1,4 @@
-<h3>Sessions</h3>
+<h3>{{ 'Sessions' | translation }}</h3>
 <div *ngFor="let item of sessionList.items">
     <div *ngIf="item.visible" (click)="onExpandClick(item)">
         {{ item.original.name }}

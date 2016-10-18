@@ -17,7 +17,7 @@ export class BusyPopup extends BasePopup {
 
 @Component({
     selector: 'busy-popup',
-    templateUrl: PluginConfig.buildTemplateUrl('/templates/busy-popup.component.html')
+    templateUrl: PluginConfig.buildTemplateUrl('/templates/busy-popup.html')
 })
 export class BusyPopupComponent {
     popup: BusyPopup;

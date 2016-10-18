@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
 import {ChooseCantonModule} from './modules/choose-canton/choose-canton.module';
+import {TranslationsModule} from './modules/translations/translations.module';
 import {PluginComponent}  from './components/plugin.component';
 import {SessionListComponent}  from './components/session-list.component';
 import {MyAgendaListComponent}  from './components/my-agenda-list.component';
@@ -21,7 +22,8 @@ import {BusyPopupComponent} from "./components/busy-popup.component";
         BrowserModule,
         FormsModule,
         HttpModule,
-        ChooseCantonModule
+        ChooseCantonModule,
+        TranslationsModule
     ],
     declarations: [
         PluginComponent,

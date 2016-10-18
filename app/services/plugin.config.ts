@@ -24,6 +24,9 @@ export class PluginConfig {
     addToMyAgendaUrl: string = '';
     removeFromMyAgendaUrl: string = '';
 
+    translations: any[] = [];
+    onTranslate: any;
+
     constructor(options: PluginOptions) {
         Object.assign(this, options);
     }
