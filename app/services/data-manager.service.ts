@@ -38,9 +38,9 @@ export class DataManagerService {
             .post(this.config.addToMyAgendaUrl, {data})
             .then(
                 res => {
+                    console.log('responce ', res);
                     this.hideLoading();
-                    this.agendaSessions.update(res as any);
-                    this.myAgenda.updateFromSessions(this.agendaSessions.sessions);
+                    this.checkAndUpdateList(res);
                     return res;
                 }
             )
@@ -54,15 +54,31 @@ export class DataManagerService {
             .post(this.config.removeFromMyAgendaUrl, {data})
             .then(
                 res => {
+                    console.log('responce ', res);
                     this.hideLoading();
-                    this.agendaSessions.update(res as any);
-                    this.myAgenda.updateFromSessions(this.agendaSessions.sessions);
+                    this.checkAndUpdateList(res);
                     return res;
                 }
             )
     }
 
     // -- Private
+
+    private checkAndUpdateList(res: any){
+        if(res && 'string' === typeof res.status && 'ok' !== res.status.toLowerCase()) {
+            if(res.message){
+                this.err.fire(res.message);
+            } else {
+                this.err.fire('Request to the server was not satisfied. Status ' + res.status);
+            }
+        }
+        if(res && Array.isArray(res.data)) {
+            this.agendaSessions.update(res.data as any);
+            this.myAgenda.updateFromSessions(this.agendaSessions.sessions);
+        } else {
+            this.err.fire('Parse error: Incompatible session list format.');
+        }
+    }
 
     private showLoading(){
         console.log('show loading');

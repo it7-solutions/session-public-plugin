@@ -19,10 +19,14 @@
             console.log('mockAjax', url, data);
             data = JSON.parse(data.data);
             console.log('mockAjax deJSON', data);
-            var r = [];
+            var r = {
+                status: 'ok',
+                message: '',
+                data: []
+            };
             switch (url) {
                 case '/add':
-                    r = [
+                    r.data = [
                         {
                             id: '1',
                             name: 'First session Jura FR',
@@ -45,7 +49,7 @@
                     break;
 
                 case '/remove':
-                    r = [
+                    r.data = [
                         {
                             id: '1',
                             name: 'First session Jura FR',

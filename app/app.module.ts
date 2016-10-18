@@ -13,6 +13,8 @@ import {PopupService} from "./services/popup.service";
 import {DataManagerService} from "./services/data-manager.service";
 import {AgendaSessionsService} from "./services/agenda-sessions.service";
 import {MyAgendaService} from "./services/my-agenda.service";
+import {BusyPopupComponent} from "./components/busy-popup.component";
+
 
 @NgModule({
     imports: [
@@ -24,7 +26,8 @@ import {MyAgendaService} from "./services/my-agenda.service";
     declarations: [
         PluginComponent,
         SessionListComponent,
-        MyAgendaListComponent
+        MyAgendaListComponent,
+        BusyPopupComponent
     ],
     bootstrap: [PluginComponent],
     providers: [
