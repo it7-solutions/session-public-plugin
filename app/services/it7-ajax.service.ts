@@ -1,9 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, Response, ResponseOptions, RequestOptions, URLSearchParams } from '@angular/http';
+import {Headers, Http, Response, ResponseOptions, RequestOptions, URLSearchParams as ngURLSearchParams, QueryEncoder } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import {It7ErrorService} from "./it7-error.service";
 import {PluginConfig} from "./plugin.config";
+
+class TrueQueryEncoder extends QueryEncoder {
+    encodeKey(k: string): string {
+        return encodeURIComponent(k);
+    }
+    encodeValue(v: string): string {
+        return encodeURIComponent(v);
+    }
+}
 
 interface It7AjaxResponse {
     error: number
@@ -36,7 +45,7 @@ export class It7AjaxService {
     }
 
     private urlEncode(obj: any): string {
-        let urlSearchParams = new URLSearchParams();
+        let urlSearchParams = new ngURLSearchParams('', new TrueQueryEncoder());
         for (let key in obj) {
             urlSearchParams.append(key, obj[key]);
         }
