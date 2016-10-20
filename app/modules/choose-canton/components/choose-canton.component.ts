@@ -1,11 +1,17 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, Input, Output, EventEmitter} from '@angular/core';
 import {PluginConfig} from "../../../services/plugin.config";
+import {FilterListOf, Filter} from "../../../models/filter-list-of";
+import {It7ErrorService} from "../../../services/it7-error.service";
 
 @Component({
     selector: 'choose-canton',
     templateUrl: PluginConfig.buildTemplateUrl('modules/choose-canton/templates/choose-canton.html')
 })
 export class ChooseCantonComponent {
+    @Input() filters: FilterListOf;
+    @Output() public cancelPopup = new EventEmitter<void>();
+    @Output() public setCanton = new EventEmitter<string>();
+
     public selectedCanton: any;
     public hoveredCanton: any;
     public cantons: any[] = [];
@@ -13,8 +19,19 @@ export class ChooseCantonComponent {
 
     private isActiveSelectable: boolean = false;
 
-    constructor(private _config: PluginConfig) {
-        console.log('config module', this._config);
+    // Popup properties
+    private styleLeft: string;
+    private styleTop: string;
+    private overlayWidth: string;
+    private overlayHeight: string;
+    private window: any;
+
+    constructor(private config: PluginConfig,
+                private err: It7ErrorService) {
+        console.log('config module', this.config);
+
+        // For popup
+        this.window = window;
 
         this.cantons = [
             {
@@ -202,14 +219,34 @@ export class ChooseCantonComponent {
             this.cantonsByName[this.cantons[i].name] = this.cantons[i];
         }
 
-        this.selectedCanton = this.cantons[1];
-        this.selectedCanton.cssClass = 'canton selected';
     }
 
-    // Mouse events
+    // -- Angular events
+
+    ngOnInit() {
+        // Set current selected canton
+        let canton = this.getCurrentCanton();
+        if (canton) {
+            this.selectedCanton = canton;
+            this.selectedCanton.cssClass = 'canton selected';
+        }
+        // Set popup properties
+        this.setOverlay();
+        this.centerPopup();
+    }
+
+    // -- Component events
+
+    public onOkClick() {
+        this.setCanton.emit(this.getSelectedCantonKey());
+    }
+
+    public onCancelClick() {
+        console.log('onCancelClick!');
+        this.cancelPopup.emit();
+    }
 
     @HostListener('click', ['$event']) onMouseClick(aa: any) {
-        //console.log('mouseenter', aa);
         var name = aa.target.getAttribute('data-id');
         var canton = this.cantonsByName[name];
         if (canton) {
@@ -307,5 +344,34 @@ export class ChooseCantonComponent {
     private removeClassName(classes: string, cls: string): string{
         var removeClassNameRegExp: any = new RegExp('(\\s+|^)'+cls, 'g');
         return classes.replace(removeClassNameRegExp, ' ');
+    }
+
+    // Canton methods
+
+    private getCurrentCanton(): any {
+        var canton: any;
+        var filter: Filter = this.filters.filtersByKey['cantons'];
+        if (filter instanceof Filter) {
+            canton = this.cantonsByName[filter.value];
+        } else {
+            this.err.fire('Filter cantons not found');
+        }
+        return canton;
+    }
+
+    private getSelectedCantonKey() :string {
+        return this.selectedCanton ? this.selectedCanton.name : '';
+    }
+
+    // Popup routine
+
+    private setOverlay() {
+        this.overlayHeight = this.window.innerHeight + "px";
+        this.overlayWidth = this.window.innerWidth + "px";
+    }
+
+    private centerPopup() {
+        this.styleTop = (this.window.innerHeight - 675) / 2 + "px";
+        this.styleLeft = (this.window.innerWidth - 946) / 2 + "px";
     }
 }

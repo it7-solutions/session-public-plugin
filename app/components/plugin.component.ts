@@ -1,10 +1,11 @@
 import {Component, Output} from '@angular/core';
 import {PluginConfig} from "../services/plugin.config";
 import {ListOf} from "../models/list-of";
-import {FilterListOf} from "../models/filter-list-of";
+import {FilterListOf, Filter} from "../models/filter-list-of";
 import {AgendaSessionsService} from "../services/agenda-sessions.service";
 import {MyAgendaService} from "../services/my-agenda.service";
 import {AgendaSession} from "../models/agenda-session";
+import {It7ErrorService} from "../services/it7-error.service";
 
 @Component({
     selector: 'session-public-plugin',
@@ -15,8 +16,11 @@ export class PluginComponent {
     @Output() public myAgenda: MyAgendaService;
     @Output() public filters:FilterListOf;
 
+    private showChooseCanton = false;
+
     constructor(
         private config: PluginConfig,
+        private err: It7ErrorService,
         private agendaSessions: AgendaSessionsService,
         myAgenda: MyAgendaService
     ) {
@@ -54,6 +58,22 @@ export class PluginComponent {
         }
     }
 
+    public onChooseCantonClick(){
+        this.showChooseCanton = true;
+    }
+
+    public onCancelChooseCanton() {
+        this.showChooseCanton = false;
+        console.log('onCancelChooseCanton');
+    }
+
+    public onChooseCanton(cantonKey:string) {
+        this.showChooseCanton = false;
+        this.setCantonFilterByKey(cantonKey);
+        this.applyFilter();
+        console.log('onChooseCanton '+cantonKey);
+    }
+
     // -- Private
 
     private onSessionsUpdate(sessions: AgendaSession[]){
@@ -65,5 +85,18 @@ export class PluginComponent {
     private applyFilter(){
         console.log('applyFilter',this.filters, this.sessionList);
         this.filters.applyToList(this.sessionList);
+    }
+
+    private setCantonFilterByKey(key: string) {
+        var filter: Filter = this.filters.filtersByKey['cantons'];
+        if (filter instanceof Filter) {
+            if (filter.values.find(f => f.key === key)) {
+                filter.value = key;
+            } else {
+                this.err.fire('Selected Canton does not exist in the filter of the cantons');
+            }
+        } else {
+            this.err.fire('Filter cantons not found');
+        }
     }
 }

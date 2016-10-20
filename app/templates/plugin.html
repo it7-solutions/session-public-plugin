@@ -10,6 +10,10 @@
     <option *ngFor="let option of filters.filtersByKey.languages.values" [value]="option.key">{{option.label}}</option>
 </select>
 
+<div (click)="onChooseCantonClick()" >Choose canton on Map</div>
+
 <session-list [sessionList]="sessionList"></session-list>
 
 <busy-popup></busy-popup>
+<choose-canton *ngIf="showChooseCanton" [filters]="filters" (cancelPopup)="onCancelChooseCanton()"
+               (setCanton)="onChooseCanton($event)"></choose-canton>
