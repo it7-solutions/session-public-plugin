@@ -12,7 +12,7 @@
 
 <div (click)="onChooseCantonClick()" >Choose canton on Map</div>
 
-<session-list [sessionList]="sessionList"></session-list>
+<session-list [sortings]="sortings" [sessionList]="sessionList"></session-list>
 
 <busy-popup></busy-popup>
 <choose-canton *ngIf="showChooseCanton" [filters]="filters" (cancelPopup)="onCancelChooseCanton()"

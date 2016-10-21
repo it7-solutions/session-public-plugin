@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Filter} from "../models/filter-list-of"
+import {Sorting} from "../models/sort-list-of"
 import {AgendaSession} from "../models/agenda-session"
 
 export interface PluginOptions {
@@ -7,6 +8,7 @@ export interface PluginOptions {
     mockAJAX: any
 
     filters: Filter[]
+    sortings: Sorting[]
     sessions: AgendaSession[]
 
     addToMyAgendaUrl: string
@@ -19,6 +21,7 @@ export class PluginConfig {
     mockAJAX: any;
 
     filters: Filter[] = [];
+    sortings: Sorting[] = [];
     sessions: AgendaSession[] = [];
 
     addToMyAgendaUrl: string = '';

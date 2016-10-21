@@ -11,9 +11,4 @@ import {PluginConfig}  from '../../services/plugin.config';
 })
 export class ChooseCantonModule {
 
-    constructor(
-        private config: PluginConfig
-    ) {
-        console.log('module ', config);
-    }
 }

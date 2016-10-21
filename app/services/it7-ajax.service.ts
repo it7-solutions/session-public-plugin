@@ -40,7 +40,7 @@ export class It7AjaxService {
             .toPromise()
             .then(res => this.checkResponse(res))
             .catch(function (error) {
-                console.log(arguments); here.handleError('Request error: ' + error.message);
+                here.handleError('Request error: ' + error.message);
             });
     }
 
@@ -66,7 +66,6 @@ export class It7AjaxService {
     }
 
     private getMockData(url: string = '', data: any = undefined):any {
-        console.log('Mock request to ' + url, data);
         var m = 'function' === typeof this.config.mockAJAX ? this.config.mockAJAX(url, data) : {};
         return m;
     }

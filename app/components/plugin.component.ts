@@ -2,6 +2,7 @@ import {Component, Output} from '@angular/core';
 import {PluginConfig} from "../services/plugin.config";
 import {ListOf} from "../models/list-of";
 import {FilterListOf, Filter} from "../models/filter-list-of";
+import {SortListOf} from '../models/sort-list-of';
 import {AgendaSessionsService} from "../services/agenda-sessions.service";
 import {MyAgendaService} from "../services/my-agenda.service";
 import {AgendaSession} from "../models/agenda-session";
@@ -15,25 +16,28 @@ export class PluginComponent {
     @Output() public sessionList:ListOf;
     @Output() public myAgenda: MyAgendaService;
     @Output() public filters:FilterListOf;
+    @Output() public sortings:SortListOf;
 
     private showChooseCanton = false;
 
     constructor(
-        private config: PluginConfig,
+        config: PluginConfig,
         private err: It7ErrorService,
         private agendaSessions: AgendaSessionsService,
         myAgenda: MyAgendaService
     ) {
-        console.log('config', this.config);
-
         this.myAgenda = myAgenda;
 
         // Init Filters from config
         this.filters = new FilterListOf();
-        this.filters.add(this.config.filters);
+        this.filters.add(config.filters);
 
         // Create List from sessions
         this.sessionList = new ListOf();
+
+        // Create sorting
+        this.sortings = new SortListOf(this.sessionList);
+        this.sortings.add(config.sortings)
     }
 
     // -- Angular events
@@ -42,6 +46,7 @@ export class PluginComponent {
         this.agendaSessions.onUpdate.subscribe(sessions => this.onSessionsUpdate(sessions));
         this.onSessionsUpdate(this.agendaSessions.sessions);
         this.applyFilter();
+        this.sortList();
     }
 
     // -- Component events
@@ -64,27 +69,27 @@ export class PluginComponent {
 
     public onCancelChooseCanton() {
         this.showChooseCanton = false;
-        console.log('onCancelChooseCanton');
     }
 
     public onChooseCanton(cantonKey:string) {
         this.showChooseCanton = false;
         this.setCantonFilterByKey(cantonKey);
         this.applyFilter();
-        console.log('onChooseCanton '+cantonKey);
     }
 
     // -- Private
 
     private onSessionsUpdate(sessions: AgendaSession[]){
-        console.log('ON session update', sessions);
         this.sessionList.update(sessions);
         this.applyFilter();
     }
 
     private applyFilter(){
-        console.log('applyFilter',this.filters, this.sessionList);
         this.filters.applyToList(this.sessionList);
+    }
+
+    private sortList(){
+        this.sortings.sort();
     }
 
     private setCantonFilterByKey(key: string) {

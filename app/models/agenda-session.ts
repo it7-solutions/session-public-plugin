@@ -20,6 +20,9 @@ export class AgendaSession {
     sessionKey: string = '';
     chefKey: string = '';
 
+    // for sort
+    dateRaw: string = '';
+
     // for controls
     isInAgenda: boolean = false;
     isCanAdd: boolean = false;

@@ -28,7 +28,6 @@ export class ChooseCantonComponent {
 
     constructor(private config: PluginConfig,
                 private err: It7ErrorService) {
-        console.log('config module', this.config);
 
         // For popup
         this.window = window;
@@ -218,8 +217,6 @@ export class ChooseCantonComponent {
             }
         ];
 
-        console.log(this.cantons.length);
-
         // Indexed by name
         this.cantonsByName = {};
         for(var i in this.cantons){
@@ -249,7 +246,6 @@ export class ChooseCantonComponent {
     }
 
     public onCancelClick() {
-        console.log('onCancelClick!');
         this.cancelPopup.emit();
     }
 
@@ -257,7 +253,6 @@ export class ChooseCantonComponent {
         var name = aa.target.getAttribute('data-id');
         var canton = this.cantonsByName[name];
         if (canton) {
-            console.log('set ' + name);
             if (this.selectedCanton && this.selectedCanton.name === name) {
                 this.selectedCanton.cssClass = this.removeClassName(this.selectedCanton.cssClass, 'selected');
                 this.selectedCanton = undefined;
@@ -282,26 +277,21 @@ export class ChooseCantonComponent {
             if('land' === dataType) {
                 this.setActiveSelectable(true);
             } else {
-                console.log('dataType ' + dataType);
                 this.setActiveSelectable(false);
             }
         }
     }
 
     @HostListener('mouseenter', ['$event']) onMouseEnter(aa: any) {
-        //console.log('mouseenter', aa);
         if ('canton' === aa.target.getAttribute('class')) {
             aa.target.setAttribute('class', 'canton hover')
         }
-        console.log(aa.target.getAttribute('class'));
     }
 
     @HostListener('mouseleave', ['$event']) onMouseLeave(aa: any) {
-        //console.log('mouseenter', aa);
         if ('canton hover' === aa.target.getAttribute('class')) {
             aa.target.setAttribute('class', 'canton')
         }
-        console.log(aa.target.getAttribute('class'));
     }
 
     // Used in template
@@ -339,8 +329,6 @@ export class ChooseCantonComponent {
                     this.cantons[i].cssClass += ' ' + 'activeForSelection';
                 }
             } else {
-                console.log('remove');
-                var reg = new RegExp('(\\s+|^)activeForSelection', 'g');
                 for(var i in this.cantons){
                     this.cantons[i].cssClass = this.removeClassName(this.cantons[i].cssClass, 'activeForSelection');
                 }

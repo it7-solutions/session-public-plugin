@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 
 import {PluginConfig} from "../services/plugin.config";
 import {ListOf, ListItem} from "../models/list-of";
+import {SortListOf, Sorting} from '../models/sort-list-of';
 import {DataManagerService} from "../services/data-manager.service";
 
 @Component({
@@ -10,44 +11,28 @@ import {DataManagerService} from "../services/data-manager.service";
 })
 export class SessionListComponent {
     @Input() public sessionList:ListOf;
+    @Input() public sortings:SortListOf;
 
     constructor(
-        private config: PluginConfig,
         private dm: DataManagerService
     ) {
-        console.log('config', this.config);
-    }
-
-    ngOnInit(){
-        console.log(this.sessionList);
     }
 
     // -- Component events
 
+    public onSortClick(s:Sorting){
+        this.sortings.sortBy(s.key, s.active ? !s.descending : false);
+    }
+
     public onExpandClick(item:ListItem) {
         item.expanded = !item.expanded;
-        console.log('expand ', item)
     }
 
     public onAddClick(item:ListItem) {
-        console.log('Add ', item);
-        this.dm.addToMyAgendaRequest(item.original)
-            .then(
-                data => {
-                    console.log('return after add', data);
-                    //this.dynamicFlags.update(this.config);
-                }
-            );
+        this.dm.addToMyAgendaRequest(item.original);
     }
 
     public onRemoveClick(item:ListItem) {
-        console.log('Remove ', item);
-        this.dm.removeFromMyAgendaRequest(item.original)
-            .then(
-                data => {
-                    console.log('return after remove', data);
-                    //this.dynamicFlags.update(this.config);
-                }
-            );
+        this.dm.removeFromMyAgendaRequest(item.original);
     }
 }

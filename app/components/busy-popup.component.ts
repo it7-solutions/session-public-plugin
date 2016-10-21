@@ -35,7 +35,6 @@ export class BusyPopupComponent {
     }
 
     private checkPopup(popup: BasePopup) {
-        console.log('Check popup');
         if (popup instanceof BusyPopup) {
             if (popup.visible) {
                 this.showPopup(popup as BusyPopup);
@@ -46,7 +45,6 @@ export class BusyPopupComponent {
     }
 
     private showPopup(popup: BusyPopup) {
-        console.log('showing popup');
         this.popup = popup;
         this.setOverlay();
         this.centerPopup();

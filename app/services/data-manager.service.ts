@@ -31,14 +31,12 @@ export class DataManagerService {
 
 
     addToMyAgendaRequest(data: Object){
-        console.log('add to my agenda request');
         this.showLoading();
         data = JSON.stringify(data);
         return this.it7Ajax
             .post(this.config.addToMyAgendaUrl, {data})
             .then(
                 res => {
-                    console.log('responce ', res);
                     this.hideLoading();
                     this.checkAndUpdateList(res);
                     return res;
@@ -47,14 +45,12 @@ export class DataManagerService {
     }
 
     removeFromMyAgendaRequest(data: Object){
-        console.log('remove to my agenda request');
         this.showLoading();
         data = JSON.stringify(data);
         return this.it7Ajax
             .post(this.config.removeFromMyAgendaUrl, {data})
             .then(
                 res => {
-                    console.log('responce ', res);
                     this.hideLoading();
                     this.checkAndUpdateList(res);
                     return res;
@@ -81,13 +77,11 @@ export class DataManagerService {
     }
 
     private showLoading(){
-        console.log('show loading');
         this.popup = new BusyPopup();
         this.popupService.showPopup(this.popup);
     }
 
     private hideLoading(): any{
-        console.log('hide loading');
         if(this.popup){
             this.popup.visible = false;
             this.popupService.showPopup(this.popup);
