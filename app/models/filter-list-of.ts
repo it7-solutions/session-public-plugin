@@ -51,7 +51,8 @@ export class FilterListOf {
 
     private isListItemVisible(item: ListItem): boolean {
         var notPassed = this.activeFilters.filter((filter: Filter)=> {
-            return item.original[filter.fieldName] !== filter.value
+            let value = item.original[filter.fieldName];
+            return ('string' === typeof value ? value.toLowerCase() : value) !== filter.value
         });
         return !notPassed.length
     }
