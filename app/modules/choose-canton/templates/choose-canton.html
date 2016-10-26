@@ -22,7 +22,8 @@
 <div class="overlay" [style.width]="overlayWidth" [style.height]="overlayHeight"></div>
 <div class="popup" [style.left]="styleLeft" [style.top]="styleTop">
 
-
+{{ 'bebebe' | translation }}
+<div style="font-weight: bold;font-size: 15px;">Canton status: {{ (hoveredCanton && hoveredCanton.inactive) ? 'Inactive' : '' }}</div>
 <div style="font-weight: bold;font-size: 15px;">{{hoveredCanton ? hoveredCanton.label : (selectedCanton ? selectedCanton.label : '')}}</div>
 <svg version="1.1" data-id="all" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="948px" height="648px" viewBox="0 0 948 648" enable-background="new 0 0 948 648" xml:space="preserve">
