@@ -1,14 +1,16 @@
 import {Injectable} from "@angular/core";
 
 import {AgendaSession} from '../models/agenda-session';
-import {PluginConfig} from './plugin.config';
+import {ValidationService} from './validation.service';
 
 @Injectable()
 export class MyAgendaService {
     public sessions: AgendaSession[] = [];
 
 
-    constructor(private config: PluginConfig) {
+    constructor(
+        private validation: ValidationService
+    ) {
     }
 
     public updateFromSessions(src: AgendaSession[]) {
@@ -19,29 +21,6 @@ export class MyAgendaService {
             }
         });
 
-        this.checkMinMyAgendaSessions();
-    }
-
-    /**
-     * Check sessions column in MyAgenda and set Next Step button status
-     */
-    private checkMinMyAgendaSessions(){
-        if(this.sessions.length >= this.config.minSessionsInMyAgenda) {
-            this.allowNextStep()
-        } else {
-            this.disallowNextStep()
-        }
-    }
-
-    private allowNextStep(){
-        if('function' === typeof this.config.allowNextStep){
-            this.config.allowNextStep();
-        }
-    }
-
-    private disallowNextStep(){
-        if('function' === typeof this.config.disallowNextStep){
-            this.config.disallowNextStep();
-        }
+        this.validation.validate();
     }
 }

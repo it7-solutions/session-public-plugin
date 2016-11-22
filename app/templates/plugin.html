@@ -14,6 +14,8 @@
 
 <session-list [sortings]="sortings" [sessionList]="sessionList"></session-list>
 
+<div *ngIf="!validationState.minSessionsInMyAgenda">You must choose more sessions</div>
+
 <busy-popup></busy-popup>
 <choose-canton *ngIf="showChooseCanton" [filters]="filters" (cancelPopup)="onCancelChooseCanton()"
                (setCanton)="onChooseCanton($event)"></choose-canton>

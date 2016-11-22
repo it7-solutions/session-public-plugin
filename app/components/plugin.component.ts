@@ -7,6 +7,7 @@ import {AgendaSessionsService} from "../services/agenda-sessions.service";
 import {MyAgendaService} from "../services/my-agenda.service";
 import {AgendaSession} from "../models/agenda-session";
 import {It7ErrorService} from "../services/it7-error.service";
+import {ValidationService} from '../services/validation.service';
 
 @Component({
     selector: 'session-public-plugin',
@@ -17,6 +18,7 @@ export class PluginComponent {
     @Output() public myAgenda: MyAgendaService;
     @Output() public filters:FilterListOf;
     @Output() public sortings:SortListOf;
+    @Output() public validationState:any;
 
     private showChooseCanton = false;
 
@@ -24,8 +26,11 @@ export class PluginComponent {
         config: PluginConfig,
         private err: It7ErrorService,
         private agendaSessions: AgendaSessionsService,
-        myAgenda: MyAgendaService
+        myAgenda: MyAgendaService,
+        validation: ValidationService
     ) {
+        validation.setMyAgenda(myAgenda);
+        this.validationState = validation.state;
         this.myAgenda = myAgenda;
 
         // Init Filters from config

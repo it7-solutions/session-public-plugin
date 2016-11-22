@@ -15,6 +15,7 @@ import {DataManagerService} from "./services/data-manager.service";
 import {AgendaSessionsService} from "./services/agenda-sessions.service";
 import {MyAgendaService} from "./services/my-agenda.service";
 import {BusyPopupComponent} from "./components/busy-popup.component";
+import {ValidationService} from './services/validation.service';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {BusyPopupComponent} from "./components/busy-popup.component";
         It7ErrorService,
         It7AjaxService,
         AgendaSessionsService,
-        MyAgendaService
+        MyAgendaService,
+        ValidationService
     ]
 })
 export class AppModule {
