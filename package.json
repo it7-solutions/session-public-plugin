@@ -1,6 +1,6 @@
 {
   "name": "@it7-solutions/session-public-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Public plugin for session module",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",

@@ -140,7 +140,10 @@
                 {code: 'sessions', value: '-Sessions-'},
                 {code: 'bebebe', value: '-Bebebe-'}
             ],
-            onTranslate: function(){}
+            onTranslate: function(){},
+            allowNextStep: function(){console.log('Next Step ON')},
+            disallowNextStep: function(){console.log('Next Step OFF')},
+            minSessionsInMyAgenda: 1
         };
 
 

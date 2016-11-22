@@ -1,4 +1,9 @@
+<a name="1.0.0"></a>
+# 1.0.0 (2016-11-22)
+* Add config options: allowNextSped, disallowNextSped, minSessionsInMyAgenda 
+* Release
+
 <a name="0.1.0"></a>
-# 0.2.11 (2016-10-06)
+# 0.1.0 (2016-10-06)
 * Session public plugin 0.1.0
 * Initial commit

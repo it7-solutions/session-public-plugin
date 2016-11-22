@@ -7,6 +7,11 @@ export interface PluginOptions {
     name: string
     mockAJAX: any
 
+    minSessionsInMyAgenda?: number;
+
+    allowNextStep?: () => void;
+    disallowNextStep?: () => void;
+
     filters: Filter[]
     sortings: Sorting[]
     sessions: AgendaSession[]
@@ -19,6 +24,11 @@ export interface PluginOptions {
 export class PluginConfig {
     name: string = '';
     mockAJAX: any;
+
+    minSessionsInMyAgenda: number = 0;
+
+    allowNextStep: () => void;
+    disallowNextStep: () => void;
 
     filters: Filter[] = [];
     sortings: Sorting[] = [];
